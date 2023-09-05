@@ -1,29 +1,36 @@
-# REMITA BILLER SDK .NET
+# Remita Biller SDK .NET
+
+---
+- [Overview](#Overview)
+- [Installation](#Installation)
+- [Usage](#Usage)
+- [Contributing](#Contributing)
+- [License](#License)
+
+---
+## Overview
 This SDK Outlines the Biller methods available on Remita. This document describes the methods offered by the Software Development Kit (SDK) through which SystemSpecs’ partners can integrate much easier and faster to Remita for facilitating customer payments to billers on their platform.
-
-
-
-## OVERVIEW 
 Integrating to Remita for Biller payments SDK enables your customers make payments to billers on Remita through your platform. This provides you with the capability to offer your customers access to the vast array of billers and merchants, including schools, churches, service providers and the Federal Government ministries, departments and agencies (MDAs) available on Remita to purchase and subscribe to their various products and services.
 
 The process involves your customers selecting a biller to pay via your platform. They will supply payment details and confirm the details so you can debit their account with AmountDue to credit a designated Funds Holding Account. Your customers will be emailed Remita receipts (which are FGN MDA-recognized for TSA-bound payments) for each transaction.
 
-## PREREQUISITES
+### Prerequisites
 - Prior to using the SDK, you need to set up an integration profile on www.remita.net. Each  method call will require you to pass the Public key/Secret key. Note that these values have to be set in the header for any request.
  Your public and secret keys are located at the Billing page at your profile. After you login, click ‘Setup Billing’ at your dashboard >> click ‘Proceed’ on the ‘Yes’ option for the integration question that comes up >> to display the Public/Secret key.
 - .NET 2.0 or later
 - Visual Studio 2012 or later
 
+---
 
-
-## Installing the SDK
-To install the billing-gateway-sdk-dotnet from package, run the following command in the 'NuGet Package Manager Console'.
+## Installation
+To install the billing-gateway-sdk-dotnet from package, run the following command in the 'NuGet Package Manager Console':
 
 ```java PM> Install-Package RemitaBillingGateway -Version 1.0.xxxx```
 
-## CREDENTIALS
+### Credentials
 Before calling the Biller methods, the SDK needs to be initialized with the Credentials object, see below:
-### Credentials attributes
+
+#### Credentials attributes
 |Field  | Type    | Required   | Description   |   
 | ---   | ------  | -----------| -------- |   
 | publicKey| String | Yes| Located at the Billing page of your Remita profile on www.remita.net.
@@ -52,7 +59,9 @@ Before calling the Biller methods, the SDK needs to be initialized with the Cred
     RemitaBiller.Init(credentials);
 ```
 
-## METHODS
+---
+
+## Usage
 1.    [GetBillers()](#getbillers) - Gets the list of billers on Remita platform.
 2.	[GetServiceTypes(string billerId)](#getservice) - Gets the list of service  Types based on selected billerId.
 3. [GetCustomFields(string billId)](#getservicetypeid) - Gets the list of Custom Fields based on selected serviceTypeId.
@@ -65,12 +74,10 @@ Before calling the Biller methods, the SDK needs to be initialized with the Cred
 ### 1. GetBillers()
 This returns a list of the billers, merchants and MDAs available on Remita.
 
-
-
 ```java
 GetBillersResponse getBillerResponse = Biller.GetBillers();
 ```
-### GetBillersResponse attributes
+#### GetBillersResponse attributes
 | Name  | Type    | 
 | ---   | ------  | 
 | responseCode | String |
@@ -78,7 +85,7 @@ GetBillersResponse getBillerResponse = Biller.GetBillers();
 | appVersionCode | String | 
 | responseData  | List< GetBillersResponseData>  |
 
-### GetBillersResponseData attributes
+#### GetBillersResponseData attributes
 | Name  | Type    |
 | ---   | ------  | 
 | id | String |
@@ -91,7 +98,7 @@ This returns a list of the products and services associated with specified bille
 ```java
 GetServiceTypesResponse getServiceTypesResponse = Biller.GetServiceTypes("QATEST")
 ```
-### GetServiceTypesResponse attributes
+#### GetServiceTypesResponse attributes
 | Name  | Type    | 
 | ---   | ------  | 
 | responseCode | String |
@@ -99,7 +106,7 @@ GetServiceTypesResponse getServiceTypesResponse = Biller.GetServiceTypes("QATEST
 | appVersionCode | String | 
 | responseData  | 'List <GetServiceResponseData>' 
 
-### GetServiceTypesResponseResponseData attributes
+#### GetServiceTypesResponseResponseData attributes
 | Name  | Type    |
 | ---   | ------  | 
 | id | String |
@@ -110,7 +117,7 @@ Custom fields are additional information specific to a service/product offered f
 ```java
  GetCustomFieldsResponse GetCustomFields(string billId)
 ```
-### GetCustomFieldsResponse attributes
+#### GetCustomFieldsResponse attributes
 | Name  | Type    | 
 | ---   | ------  | 
 | responseCode | String |
@@ -122,7 +129,7 @@ Custom fields are additional information specific to a service/product offered f
 | fixedAmount | double | 
 | currency | string | 
 
-### GetCustomFieldsResponseData attributes
+#### GetCustomFieldsResponseData attributes
 | Name  | Type    |
 | ---   | ------  | 
 | id | String |
@@ -137,7 +144,7 @@ You need to make a request for Remita to execute a validation operation on the d
 ```java
  ValidateResponse Validate(ValidateRequest validateRequest)
 ```
-### ValidateResponse attributes
+#### ValidateResponse attributes
 | Name  | Type    | 
 | ---   | ------  | 
 | responseCode | String |
@@ -145,7 +152,7 @@ You need to make a request for Remita to execute a validation operation on the d
 | appVersionCode | String | 
 | responseData  | 'List <ValidateResponseData>' |
 
-### ValidateResponseData attributes
+#### ValidateResponseData attributes
 | Name  | Type    |
 | ---   | ------  | 
 | billId | String |
@@ -158,13 +165,13 @@ You need to make a request for Remita to execute a validation operation on the d
 | status | String | 
 | customFields  | 'List <ValidateResponseCustomField>' |
 
-### ValidateResponseCustomField attributes
+#### ValidateResponseCustomField attributes
 | Name  | Type    | 
 | ---   | ------  | 
 | id | String | 
 | values  | 'List <ValidateResponseValue>' |
 
-### ValidateResponseValue attributes
+#### ValidateResponseValue attributes
 | Name  | Type    | 
 | ---   | ------  | 
 | value | String |
@@ -176,7 +183,7 @@ In order to complete the transaction through the Remita Payment Gateway, a Remit
 ```java
   GenerateRRRResponse GenerateRRR(GenerateRRRRequest generateRRRRequest)
 ```
-### GenerateRRRResponse attributes
+#### GenerateRRRResponse attributes
 | Name  | Type    | 
 | ---   | ------  | 
 | responseCode | String |
@@ -184,7 +191,7 @@ In order to complete the transaction through the Remita Payment Gateway, a Remit
 | appVersionCode | String | 
 | responseData  | 'List <GenerateRRRResponseData>' |
 
-### GenerateRRRResponseData attributes
+#### GenerateRRRResponseData attributes
 | Name  | Type    |
 | ---   | ------  | 
 | amountDue | String | 
@@ -195,7 +202,7 @@ If your customer already has a Remita Retrieval Reference (RRR), he/she can veri
 ```java
    GetRRRDetailsResponse GetRRRDetails(string rrr)
 ```
-### GetRRRDetailsResponse attributes
+#### GetRRRDetailsResponse attributes
 | Name  | Type    | 
 | ---   | ------  | 
 | responseCode | String |
@@ -203,7 +210,7 @@ If your customer already has a Remita Retrieval Reference (RRR), he/she can veri
 | appVersionCode | String | 
 | responseData  | 'List <GetRRRDetailsResponseData>' |
 
-### GetRRRDetailsResponseData attributes
+#### GetRRRDetailsResponseData attributes
 | Name  | Type    |
 | ---   | ------  | 
 | amountDue | double | 
@@ -230,7 +237,7 @@ You may need to enquire that status of biller payments your customers have made 
 ```java
     PaymentStatusResponse PaymentStatus(string transactionId)
 ```
-### PaymentStatusResponse attributes
+#### PaymentStatusResponse attributes
 | Name  | Type    | 
 | ---   | ------  | 
 | responseCode | String |
@@ -240,7 +247,7 @@ You may need to enquire that status of biller payments your customers have made 
 | iResponseMessage | object | 
 | responseData  | 'List <PaymentStatusData>' |
 
-### PaymentStatusData attributes
+#### PaymentStatusData attributes
 | Name  | Type    |
 | ---   | ------  | 
 | amountDue | double | 
@@ -258,7 +265,7 @@ After you have debit the customer with the RRR amount (amountDue) to process the
 ```java
      BillPaymentNotificationResponse BillPaymentNotification(NotificationRequest notificationRequest)
 ```
-### BillPaymentNotificationResponse attributes
+#### BillPaymentNotificationResponse attributes
 | Name  | Type    | 
 | ---   | ------  | 
 | responseCode | String |
@@ -268,7 +275,7 @@ After you have debit the customer with the RRR amount (amountDue) to process the
 | iResponseMessage | object | 
 | responseData  | 'List < BillPaymentNotificationResponseData>' |
 
-### BillPaymentNotificationResponseData attributes
+#### BillPaymentNotificationResponseData attributes
 | Name  | Type    |
 | ---   | ------  | 
 | amountDue | double | 
@@ -280,3 +287,29 @@ After you have debit the customer with the RRR amount (amountDue) to process the
 | debittedAccount | string |
 | amountDebitted | int |
 | extendedData | List< object>|
+
+
+### Useful links
+Join our Slack Developer/Support channel on [Slack.](http://bit.ly/RemitaDevSlack)
+    
+### Support
+For all other support needs, support@remita.net
+
+---
+
+## Contributing
+To contribute to this repo, follow these guidelines for creating issues, proposing new features, and submitting pull requests:
+
+1. Fork the repository.
+2. Create a new branch: `git checkout -b "feature-name"`
+3. Make your changes and commit: `git commit -m "added some new features"`
+4. Push your changes: `git push origin feature-name`
+5. Submit a Pull Request (PR).
+
+Thank you!
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
